@@ -61,8 +61,6 @@ public class AsynChecker extends AsyncTask<Object,Void,Boolean> {
         for (DocumentFile elem_folder: root) {
             l+=elem_folder.listFiles().length;
         }
-        Log.d("BGBTB", "pic number == "+l);
-        Log.d("BGBTB", "data length == "+data.length());
         if(l!=data.length()){
             if (l > data.length()) {
 
@@ -70,7 +68,6 @@ public class AsynChecker extends AsyncTask<Object,Void,Boolean> {
                     createData(elem_folder.listFiles(), elem_folder);
                 }
             }else if (l< data.length()){
-                Log.d("BGBTB", "clear data ??");
                 ArrayList<Data> dataGen = new ArrayList<>();
                 for (DocumentFile elem_folder: root) {
                     if(elem_folder.listFiles().length>0){
@@ -181,7 +178,7 @@ public class AsynChecker extends AsyncTask<Object,Void,Boolean> {
                     }
                 }
                 if(b){
-                    new AsyncThumb().execute(pic_elem.getName(), c,thumbFolder,null
+                    new AsyncThumb().execute(pic_elem.getName(), c.get(),thumbFolder,null
                             , MediaStore.Images.Media.getBitmap(c.get().getContentResolver(), pic_elem.getUri()));
                 }
             }

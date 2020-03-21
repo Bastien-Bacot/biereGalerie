@@ -50,11 +50,6 @@ public class AsyncBitmap extends AsyncTask<Void, Integer, Boolean> {
                 //BitmapFactory.Options options = new BitmapFactory.Options();
                // options.inSampleSize = 1;
                 Bitmap myBitmap1= MediaStore.Images.Media.getBitmap(context.get().getContentResolver(), uriList.get(i));
-                //Bitmap myBitmap1=  BitmapFactory.decodeStream(inputStream,null, options);
-               /* if(myBitmap1.getHeight()<1000){
-                    myBitmap1= MediaStore.Images.Media.getBitmap(context.get().getContentResolver(), uriList.get(i));
-
-                }*/
                 Matrix rmatrix = new Matrix();
                 if (myBitmap1.getWidth() > myBitmap1.getHeight()) {
                     rmatrix.postRotate(90);

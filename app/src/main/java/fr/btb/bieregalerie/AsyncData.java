@@ -81,7 +81,6 @@ public  class AsyncData extends AsyncTask<Object,Void,JSONArray>{
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
                 unsort= new JSONArray(br.readLine());
                 full = unsort;
-                //}
                 if(full.toString().equals("[]")){
                     full = new JSONArray();
                 }
@@ -109,13 +108,11 @@ public  class AsyncData extends AsyncTask<Object,Void,JSONArray>{
             out.write(UTF8_BOM);
             out.write(dat_array.toString().getBytes());
             out.close();
-            Log.d("BGBTB", "write done");
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
-    //duplicate for name | add id
     private JSONArray modif (Data data){
         try {
             Data tempData;

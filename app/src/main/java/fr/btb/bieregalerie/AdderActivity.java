@@ -36,7 +36,7 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
     String genre, mode;
     int cursor = 0;
     FileSave fs;
-    private final String tempName = "temp.png";
+    private static final String tempName = "temp.png";
     boolean[] bArray;
     boolean botos;
     Data dt;
@@ -44,6 +44,7 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
     int coInt;
     String annee, fullName;
     static final int RESULT_OK = -1;
+    private static final String EXT = ".png";
 
 
     @Override
@@ -160,14 +161,10 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
                     edtName.setText("");
                     break;
             }
-
-            new AsyncRename().execute(hCreater, fullName, tempName);
-            //new AsyncRename().execute(creater, fullName, tempName);
-
-                new AsyncData(new DataFileIF() {
-                    @Override
-                    public void onResponseReceived(JSONArray result) {}
-                }, fs, this).execute("write", dt);
+            new AsyncData(new DataFileIF() {
+                @Override
+                public void onResponseReceived(JSONArray result) {}
+            }, fs, this).execute("write", dt);
             return true;
         } else{
             Toast.makeText(this,"Nom non renseigné", Toast.LENGTH_LONG).show();
@@ -177,8 +174,6 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
 
     public boolean finalCheck(){
         if(cursor+1>=bitArray.size()){
-            //File temp = new File(Environment.getExternalStorageDirectory(), "temp.png");
-            //temp.delete();
             finish();
             return false;
         }
@@ -247,18 +242,13 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
                 }
             }
         }
-        new AsyncThumb().execute(tempName, this, hCreater, uriList.get(0).getPath(),bitArray.get(coInt));
-        //File temp = new File(Environment.getExternalStorageDirectory(), "temp.png");
-        //DocumentFile dff = DocumentFile.fromFile(temp);
-       // dff.renameTo(fullName+".png");
-        tempDF.renameTo(fullName+".png");
-        Log.d("BGBTB", "temp name == "+tempDF.getName()+" fullname == "+fullName);
+        new AsyncThumb().execute(fullName, this, hCreater, uriList.get(0).getPath(),bitArray.get(coInt));
+        tempDF.renameTo(fullName+EXT);
         try {
             DocumentsContract.moveDocument(getContentResolver(), tempDF.getUri(), rootDF.getUri(), creater.getUri());
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        //new AsyncFileFromPic(bitArray.get(coInt),creater,this, tempName).execute(); //for api 23 slow
     }
 
 

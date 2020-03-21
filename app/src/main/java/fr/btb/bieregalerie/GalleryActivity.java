@@ -15,17 +15,15 @@ import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import org.json.JSONArray;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class GalleryActivity extends AppCompatActivity {
     public FileSave fs = new FileSave(this);
-    JSONArray arr_data;
-    ArrayList<Uri> fullList, fullHList;
+    private JSONArray arr_data;
+    private ArrayList<Uri> fullList, fullHList;
     private static final int READ_REQUEST_CODE = 42;
     private static final int ADDER_REQUEST = 53;
     private static final int FULL_REQUEST = 54;
