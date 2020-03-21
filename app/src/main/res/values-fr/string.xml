@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Biere Galerie</string>
+    <string-array name="type_biere">
+        <item>Ambrée</item>
+        <item>Blanche</item>
+        <item>Blonde</item>
+        <item>Brune</item>
+        <item>Fruit</item>
+        <item>I.P.A</item>
+        <item>Lambic</item>
+        <item>Pale Ale</item>
+        <item>Rouge</item>
+        <item>Rousse</item>
+        <item>Stout</item>
+        <item>Trappiste</item>
+        <item>Autre</item>
+    </string-array>
+    <string-array name="type_vin">
+        <item>Blanc</item><item>Rosé</item><item>Rouge</item>
+    </string-array>
+    <string-array name="type_rhum">
+        <item>Agricole</item><item>Ambré</item><item>Blanc</item><item>Epicé</item>
+    </string-array>
+    <string-array name="type_whisky">
+        <item>Single Malt</item><item>Blend</item><item>Bourbon</item><item>Scotch</item><item>Rye</item>
+    </string-array>
+    <string-array name="detail">
+        <item>Bière</item><item>Vin</item><item>Whisky</item><item>Rhum</item><item>Autre</item>
+    </string-array>
+    <string name="comstr">commentaire :</string>
+    <string name="okstr">Ok</string>
+    <string name="biere">Bière</string>
+    <string name="vin">Vin</string>
+    <string name="all">Tout</string>
+    <string name="whisky">Whisky</string>
+    <string name="rhum">Rhum</string>
+    <string name="divers">Autre</string>
+    <string name="year">Année</string>
+    <string name="name">Nom</string>
+    <string name="folder">Veuillez choisir un emplacement où enregistrer les photos</string>
+    <string name="load">Chargement des images</string>
+</resources>

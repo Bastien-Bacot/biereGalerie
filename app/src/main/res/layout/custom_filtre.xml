@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radiogroup_filtre">
+        <RadioButton
+            android:id="@+id/select_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5sp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+        <RadioButton
+            android:id="@+id/select_beer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/biere"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5sp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+        <RadioButton
+            android:id="@+id/select_vin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vin"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5sp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+        <RadioButton
+            android:id="@+id/select_whisky"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/whisky"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5sp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+        <RadioButton
+            android:id="@+id/select_rhum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rhum"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5sp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+        <RadioButton
+            android:id="@+id/select_divers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/divers"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5sp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_okfiltre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:padding="15sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/okstr"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+</LinearLayout>

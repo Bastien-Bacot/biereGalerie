@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Biere Galerie</string>
+    <string-array name="type_biere">
+        <item>Amber Ale</item>
+        <item>Blonde Ale</item>
+        <item>Brown Ale</item>
+        <item>Fruit</item>
+        <item>I.P.A</item>
+        <item>Irish Red Ale</item>
+        <item>Lambic</item>
+        <item>Pale Ale</item>
+        <item>Red Ale</item>
+        <item>Stout</item>
+        <item>Trappist</item>
+        <item>Weissbier</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="type_vin">
+        <item>White</item><item>Rosé</item><item>Red</item>
+    </string-array>
+    <string-array name="type_rhum">
+        <item>Agricole</item><item>Gold</item><item>Light</item><item>Spiced</item>
+    </string-array>
+    <string-array name="type_whisky">
+        <item>Single Malt</item><item>Blend</item><item>Bourbon</item><item>Scotch</item><item>Rye</item>
+    </string-array>
+    <string-array name="detail"><item>Beer</item><item>Wine</item><item>Whisky</item><item>Rum</item><item>Other</item></string-array>
+    <string name="comstr">note :</string>
+    <string name="okstr">Ok</string>
+    <string name="biere">Beer</string>
+    <string name="vin">Wine</string>
+    <string name="all">All</string>
+    <string name="whisky">Whisky</string>
+    <string name="rhum">Rum</string>
+    <string name="divers">Other</string>
+    <string name="year">Year</string>
+    <string name="name">Name</string>
+    <string name="folder">Please select a folder where to save the file</string>
+    <string name="load">Loading</string>
+</resources>
