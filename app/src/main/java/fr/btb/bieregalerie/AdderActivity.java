@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.support.v4.provider.DocumentFile;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,33 +16,30 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.github.chrisbanes.photoview.PhotoView;
 import org.json.JSONArray;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.text.InputType.TYPE_CLASS_TEXT;
 
 public class AdderActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-    PhotoView imgV;
-    Spinner spinnerType, spinnerDetail;
-    ArrayAdapter<String> dataAdapter, dataDetail;
-    ArrayList<Uri> uriList;
-    ArrayList<Bitmap> bitArray;
-    String genre, mode;
-    int cursor = 0;
-    FileSave fs;
-    private static final String tempName = "temp.png";
-    boolean[] bArray;
-    boolean botos;
-    Data dt;
+    private PhotoView imgV;
+    private Spinner spinnerType, spinnerDetail;
+    private ArrayAdapter<String> dataAdapter, dataDetail;
+    private ArrayList<Uri> uriList;
+    private ArrayList<Bitmap> bitArray;
+    private String genre, mode;
+    private int cursor = 0;
+    private FileSave fs;
+    private boolean[] bArray;
+    private boolean botos;
+    private Data dt;
     private DocumentFile rootDF, creater, hCreater, tempDF;
-    int coInt;
-    String annee, fullName;
-    static final int RESULT_OK = -1;
+    private int coInt;
+    private String annee, fullName;
+    private static final int RESULT_OK = -1;
     private static final String EXT = ".png";
+    private static final String TEMPN = "temp.png";
 
 
     @Override
@@ -79,7 +74,7 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
         fs = new FileSave(this);
         fs.treeFileTest();
         rootDF = fs.getSaveDir();
-        tempDF = rootDF.findFile("temp.png");
+        tempDF = rootDF.findFile(TEMPN);
         setSpinner();
     }
 
@@ -243,12 +238,15 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
             }
         }
         new AsyncThumb().execute(fullName, this, hCreater, uriList.get(0).getPath(),bitArray.get(coInt));
-        tempDF.renameTo(fullName+EXT);
+       //TODO use copy del old file(if .size()<2) ? rename new one so tempdf == new file
         try {
             DocumentsContract.moveDocument(getContentResolver(), tempDF.getUri(), rootDF.getUri(), creater.getUri());
+            tempDF = creater.findFile(TEMPN);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
+
+        tempDF.renameTo(fullName+EXT);
     }
 
 
