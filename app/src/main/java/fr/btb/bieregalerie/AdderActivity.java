@@ -24,22 +24,17 @@ import static android.text.InputType.TYPE_CLASS_TEXT;
 public class AdderActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     private PhotoView imgV;
-    private Spinner spinnerType, spinnerDetail;
-    private ArrayAdapter<String> dataAdapter, dataDetail;
+    private Spinner spinnerType;
+    private ArrayAdapter<String> dataAdapter;
     private ArrayList<Uri> uriList;
     private ArrayList<Bitmap> bitArray;
     private String genre, mode;
     private int cursor = 0;
     private FileSave fs;
-    private boolean[] bArray;
-    private boolean botos;
-    private Data dt;
     private DocumentFile rootDF, creater, hCreater, tempDF;
-    private int coInt;
-    private String annee, fullName;
+    private String fullName;
     private static final int RESULT_OK = -1;
     private static final String EXT = ".png";
-    private static final String TEMPN = "temp.png";
 
 
     @Override
@@ -54,15 +49,9 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
                 uriList = null;
             }else{
                 uriList = (ArrayList<Uri>)extras.getSerializable("list");
-                botos = extras.getBoolean("photo");
             }
         }else{
             uriList = (ArrayList<Uri>)savedInstanceState.getSerializable("list");
-            botos = savedInstanceState.getBoolean("photo");
-        }
-        bArray = new boolean[uriList.size()];
-        for (int i=0;i<uriList.size();i++){
-            bArray[i]=false;
         }
         new AsyncBitmap(new BitmapListIF() {
             @Override
@@ -74,12 +63,10 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
         fs = new FileSave(this);
         fs.treeFileTest();
         rootDF = fs.getSaveDir();
-        tempDF = rootDF.findFile(TEMPN);
         setSpinner();
     }
 
     public void onClick(View v){
-        coInt =cursor;
         if(checkSaved()){
             if(finalCheck()){
                 cursor++;
@@ -88,10 +75,10 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
         }
     }
     private void setSpinner(){
-        spinnerDetail =findViewById(R.id.spinner_detail);
+        Spinner spinnerDetail = findViewById(R.id.spinner_detail);
         spinnerDetail.setOnItemSelectedListener(this);
         String[] detailArray = getResources().getStringArray(R.array.detail);
-        dataDetail = new ArrayAdapter<>(this, R.layout.simple_spinner_item, detailArray);
+        ArrayAdapter<String> dataDetail = new ArrayAdapter<>(this, R.layout.simple_spinner_item, detailArray);
         dataDetail.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerDetail.setAdapter(dataDetail);
         spinnerType = findViewById(R.id.spinner_type);
@@ -104,6 +91,7 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
     }
     public void setPic(){
         Bitmap bmp = bitArray.get(cursor);
+        tempDF = DocumentFile.fromSingleUri(this,uriList.get(cursor));
         imgV.setImageBitmap(bmp);
     }
 
@@ -113,8 +101,7 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
         EditText edtDetail = findViewById(R.id.edt_year_add);
         genre = genre.replaceAll(" ", "_");
         if(!edtName.getText().toString().isEmpty()){
-            bArray[coInt]=true;
-
+            Data dt;
             switch(mode){
                 case "Rhum":
                     fullName = genre+edtName.getText();
@@ -131,17 +118,17 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
                     edtName.setText("");
                     break;
                 case "Vin":
-                    annee = edtDetail.getText().toString()+" ";
-                    fullName = genre+annee+edtName.getText();
+                    String annee = edtDetail.getText().toString() + " ";
+                    fullName = genre+ annee +edtName.getText();
                     folderPicker(getString(R.string.vin));
-                    dt = new Data(genre, annee+edtName.getText().toString(), mode);
+                    dt = new Data(genre, annee +edtName.getText().toString(), mode);
                     edtDetail.setText("");
                     edtName.setText("");
                     break;
                 case "Autre":
                     annee = edtDetail.getText().toString()+"_";
                     if(!annee.contains(" ")){
-                       annee= annee.concat(" ");
+                       annee = annee.concat(" ");
                     }
                     fullName = annee.replaceAll(" ", "_")+edtName.getText();
                     folderPicker(getString(R.string.divers));
@@ -225,6 +212,7 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
         }
     }
     private void folderPicker(String name){
+        String nameTemp = tempDF.getName();
         DocumentFile[] child = rootDF.listFiles();
         for (DocumentFile documentFile : child) {
             if (documentFile.isDirectory()) {
@@ -237,15 +225,13 @@ public class AdderActivity extends Activity implements AdapterView.OnItemSelecte
                 }
             }
         }
-        new AsyncThumb().execute(fullName, this, hCreater, uriList.get(0).getPath(),bitArray.get(coInt));
-       //TODO use copy del old file(if .size()<2) ? rename new one so tempdf == new file
+        new AsyncThumb().execute(fullName, this, hCreater, uriList.get(0).getPath(),bitArray.get(cursor));
         try {
             DocumentsContract.moveDocument(getContentResolver(), tempDF.getUri(), rootDF.getUri(), creater.getUri());
-            tempDF = creater.findFile(TEMPN);
+            tempDF = creater.findFile(nameTemp);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
         tempDF.renameTo(fullName+EXT);
     }
 
